@@ -2,7 +2,7 @@
 
 require 'open3'
 
-server_dir = "#{File.dirname(__FILE__)}/../../../dev/TestServer/server/"
+server_dir = "#{File.dirname(__FILE__)}/../../../node_modules/@microsoft.azure/autorest.testserver/"
 Dir.chdir(server_dir){
   system('npm install')
 }
