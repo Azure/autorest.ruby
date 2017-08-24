@@ -12,3 +12,43 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+# AutoRest extension configuration
+
+``` yaml
+use-extension:
+  "@microsoft.azure/autorest.modeler": "*"
+
+pipeline:
+  ruby/modeler:
+    input: swagger-document/identity
+    output-artifact: code-model-v1
+    scope: ruby
+  ruby/commonmarker:
+    input: modeler
+    output-artifact: code-model-v1
+  ruby/cm/transform:
+    input: commonmarker
+    output-artifact: code-model-v1
+  ruby/cm/emitter:
+    input: transform
+    scope: scope-cm/emitter
+  ruby/generate:
+    plugin: ruby
+    input: cm/transform
+    output-artifact: source-file-ruby
+  ruby/transform:
+    input: generate
+    output-artifact: source-file-ruby
+    scope: scope-transform-string
+  ruby/emitter:
+    input: transform
+    scope: scope-ruby/emitter
+
+scope-ruby/emitter:
+  input-artifact: source-file-ruby
+  output-uri-expr: $key
+
+output-artifact:
+- source-file-ruby
+```
