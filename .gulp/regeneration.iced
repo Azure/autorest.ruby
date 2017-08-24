@@ -55,33 +55,6 @@ regenExpected = (opts,done) ->
       instances--
       return done() if instances is 0 
 
-defaultMappings = {
-  'AcceptanceTests/ParameterFlattening': 'parameter-flattening.json',
-  'AcceptanceTests/BodyArray': 'body-array.json',
-  'AcceptanceTests/BodyBoolean': 'body-boolean.json',
-  'AcceptanceTests/BodyByte': 'body-byte.json',
-  'AcceptanceTests/BodyComplex': 'body-complex.json',
-  'AcceptanceTests/BodyDate': 'body-date.json',
-  'AcceptanceTests/BodyDateTime': 'body-datetime.json',
-  'AcceptanceTests/BodyDateTimeRfc1123': 'body-datetime-rfc1123.json',
-  'AcceptanceTests/BodyDuration': 'body-duration.json',
-  'AcceptanceTests/BodyDictionary': 'body-dictionary.json',
-  'AcceptanceTests/BodyFile': 'body-file.json',
-  'AcceptanceTests/BodyFormData': 'body-formdata.json',
-  'AcceptanceTests/BodyInteger': 'body-integer.json',
-  'AcceptanceTests/BodyNumber': 'body-number.json',
-  'AcceptanceTests/BodyString': 'body-string.json',
-  'AcceptanceTests/Header': 'header.json',
-  'AcceptanceTests/Http': 'httpInfrastructure.json',
-  'AcceptanceTests/Report': 'report.json',
-  'AcceptanceTests/RequiredOptional': 'required-optional.json',
-  'AcceptanceTests/Url': 'url.json',
-  'AcceptanceTests/Validation': 'validation.json',
-  'AcceptanceTests/CustomBaseUri': 'custom-baseUrl.json',
-  'AcceptanceTests/CustomBaseUriMoreOptions': 'custom-baseUrl-more-options.json',
-  'AcceptanceTests/ModelFlattening': 'model-flattening.json'
-}
-
 rubyMappings = {
   'boolean':['body-boolean.json', 'BooleanModule'],
   'integer':['body-integer.json','IntegerModule'],
@@ -107,47 +80,6 @@ rubyMappings = {
   'validation':['validation.json', 'ValidationModule'],
   'custom_base_uri':['custom-baseUrl.json', 'CustomBaseUriModule'],
   'custom_base_uri_more':['custom-baseUrl-more-options.json', 'CustomBaseUriMoreModule']
-}
-
-goMappings = {
-  'body-array':['body-array.json','arraygroup'],
-  'body-boolean':['body-boolean.json', 'booleangroup'],
-  'body-byte':['body-byte.json','bytegroup'],
-  'body-complex':['body-complex.json','complexgroup'],
-  'body-date':['body-date.json','dategroup'],
-  'body-datetime-rfc1123':['body-datetime-rfc1123.json','datetimerfc1123group'],
-  'body-datetime':['body-datetime.json','datetimegroup'],
-  'body-dictionary':['body-dictionary.json','dictionarygroup'],
-  'body-duration':['body-duration.json','durationgroup'],
-  'body-file':['body-file.json', 'filegroup'],
-  'body-formdata':['body-formdata.json', 'formdatagroup'],
-  'body-integer':['body-integer.json','integergroup'],
-  'body-number':['body-number.json','numbergroup'],
-  'body-string':['body-string.json','stringgroup'],
-  'custom-baseurl':['custom-baseUrl.json', 'custombaseurlgroup'],
-  'header':['header.json','headergroup'],
-  'httpinfrastructure':['httpInfrastructure.json','httpinfrastructuregroup'],
-  'model-flattening':['model-flattening.json', 'modelflatteninggroup'],
-  'report':['report.json','report'],
-  'required-optional':['required-optional.json','optionalgroup'],
-  'url':['url.json','urlgroup'],
-  'validation':['validation.json', 'validationgroup'],
-  'paging':['paging.json', 'paginggroup'],
-  'more-custom-base-uri':['custom-baseUrl-more-options.json', 'morecustombaseurigroup'],
-  'azurereport':['azure-report.json', 'azurereport']
-}
-
-defaultAzureMappings = {
-  'AcceptanceTests/Lro': 'lro.json',
-  'AcceptanceTests/Paging': 'paging.json',
-  'AcceptanceTests/AzureReport': 'azure-report.json',
-  'AcceptanceTests/AzureParameterGrouping': 'azure-parameter-grouping.json',
-  'AcceptanceTests/AzureResource': 'azure-resource.json',
-  'AcceptanceTests/Head': 'head.json',
-  'AcceptanceTests/HeadExceptions': 'head-exceptions.json',
-  'AcceptanceTests/SubscriptionIdApiVersion': 'subscriptionId-apiVersion.json',
-  'AcceptanceTests/AzureSpecials': 'azure-special-properties.json',
-  'AcceptanceTests/CustomBaseUri': 'custom-baseUrl.json'
 }
 
 rubyAzureMappings = {
@@ -187,68 +119,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate-go', '', (done) ->
-  regenExpected {
-    'outputBaseDir': 'test',
-    'inputBaseDir': swaggerDir,
-    'mappings': goMappings,
-    'outputDir': 'src/tests/generated',
-    'nsPrefix': ' ',
-    'language': 'go'
-  },done
-  return null
-
-task 'regenerate-ars', '', (done) ->
-  regenExpected {
-    'outputBaseDir': 'test',
-    'inputBaseDir': 'test/Resource/Swagger',
-    'mappings': {
-      'ApiManagement':'ApiManagement/2016-07-07/apimanagement.json',
-      'Batch':'Batch/2015-12-01/BatchManagement.json',
-      'CDN':'CDN/2015-06-01/cdn.json',
-      'CDN ':'CDN/2016-04-02/cdn.json',
-      'CognitiveServices':'CognitiveServices/2016-02-01-preview/cognitiveservices.json',
-      'CommitmentPlans':'CommitmentPlans/2016-05-01-preview/commitmentPlans.json',
-      'Compute':'Compute/2015-06-15/compute.json',
-      'Compute ':'Compute/2016-03-30/compute.json',
-      'ContainerService':'ContainerService/2016-03-30/containerService.json',
-      'DataLakeAnalytics':'DataLakeAnalytics/2015-10-01-preview/account.json',
-      'DataLakeStore':'DataLakeStore/2015-10-01-preview/account.json',
-      'DevTestLabs':'DevTestLabs/2015-05-21-preview/DTL.json',
-      'DNS':'DNS/2015-05-04-preview/dns.json',
-      'DNS ':'DNS/2016-04-01/dns.json',
-      'Insights':'Insights/2016-03-01/insightsManagementClient.json',
-      'Logic':'Logic/2015-02-01-preview/logic.json',
-      'Logic ':'Logic/2016-06-01/logic.json',
-      'MachineLearning':'MachineLearning/2016-05-01-preview/webservices.json',
-      'MobileEngagement':'MobileEngagement/2014-12-01/mobile-engagement.json',
-      'Network':'Network/2015-05-01-preview/network.json',
-      'Network ':'Network/2015-06-15/network.json',
-      'Network  ':'Network/2016-03-30/network.json',
-      'Network   ':'Network/2016-09-01/network.json',
-      'NotificationHubs':'NotificationHubs/2016-03-01/notificationhubs.json',
-      'PowerBIEmbedded':'PowerBIEmbedded/2016-01-29/powerbiembedded.json',
-      'RecoveryServices':'RecoveryServices/2016-06-01/recoveryservices.json',
-      'Redis':'Redis/2016-04-01/redis.json',
-      'Resources/Locks':'Resources/Locks/2016-09-01/locks.json',
-      'Resources/Resources':'Resources/Resources/2016-09-01/resources.json',
-      'Scheduler':'Scheduler/2016-03-01/scheduler.json',
-      'Search':'Search/2015-02-28/search.json',
-      'ServerManagement':'ServerManagement/2016-07-01-preview/servermanagement.json',
-      'ServiceBus':'ServiceBus/2015-08-01/servicebus.json',
-      'Storage':'Storage/2015-05-01-preview/storage.json',
-      'Storage ':'Storage/2015-06-15/storage.json',
-      'Storage  ':'Storage/2016-01-01/storage.json',
-      'TrafficManager':'TrafficManager/2015-11-01/trafficmanager.json',
-      'Web':'Web/2015-08-01/web.json'
-    },
-    'outputDir': 'Resource/Expected',
-    'language': 'azureresourceschema'
-  },done
-  return null
-
 task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure'], (done) ->
   done();
-
-# 'regenerate-ars'
-# 'regenerate-go'
