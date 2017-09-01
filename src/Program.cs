@@ -94,8 +94,8 @@ namespace AutoRest.Ruby
 
             // process
             var plugin = await GetValue<bool?>("azure-arm") == true
-                ? new AutoRest.Ruby.Azure.PluginRba()
-                : new AutoRest.Ruby.PluginRb();
+                ? (IAnyPlugin)new AutoRest.Ruby.Azure.PluginRba()
+                : (IAnyPlugin)new AutoRest.Ruby.PluginRb();
             Settings.PopulateSettings(plugin.Settings, Settings.Instance.CustomSettings);
             
             using (plugin.Activate())
