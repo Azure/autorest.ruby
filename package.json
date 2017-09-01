@@ -1,6 +1,6 @@
 {
   "name": "@microsoft.azure/autorest.ruby",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "The Ruby extension for classic generators in AutoRest.",
   "scripts": {
     "start": "dotnet src/bin/netcoreapp2.0/autorest.ruby.dll --server",
@@ -40,7 +40,7 @@
     "shx": "^0.2.2",
     "through2-parallel": "^0.1.3",
     "yargs": "^8.0.2",
-    "@microsoft.azure/autorest.testserver": "^1.9.0"
+    "@microsoft.azure/autorest.testserver": "^1.9.2"
   },
   "dependencies": {
     "dotnet-2.0.0": "^1.1.0"
