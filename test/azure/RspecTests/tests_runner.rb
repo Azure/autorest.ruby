@@ -3,9 +3,6 @@
 require 'open3'
 
 server_dir = "#{File.dirname(__FILE__)}/../../../node_modules/@microsoft.azure/autorest.testserver/"
-Dir.chdir(server_dir){
-  system('npm install')
-}
 random_port = 3000 + Random.rand(2000)
 Dir.chdir("#{server_dir}/startup"){
   ENV['PORT'] = random_port.to_s
