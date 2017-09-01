@@ -13,12 +13,6 @@ using IAnyPlugin = AutoRest.Core.Extensibility.IPlugin<AutoRest.Core.Extensibili
 
 namespace AutoRest.Ruby
 {
-    public static class ExtensionsLoader
-    {
-        public static IAnyPlugin GetPlugin(bool azure)
-            => azure ? new AutoRest.Python.Azure.PluginRba() : new AutoRest.Python.PluginRb();
-    }
-
     public class Program : NewPlugin
     {
         public static int Main(string[] args )
@@ -99,7 +93,9 @@ namespace AutoRest.Ruby
             }
 
             // process
-            var plugin = ExtensionsLoader.GetPlugin(await GetValue<bool?>("azure-arm") ?? false);
+            var plugin = await GetValue<bool?>("azure-arm") == true
+                ? new AutoRest.Ruby.Azure.PluginRba()
+                : new AutoRest.Ruby.PluginRb();
             Settings.PopulateSettings(plugin.Settings, Settings.Instance.CustomSettings);
             
             using (plugin.Activate())
