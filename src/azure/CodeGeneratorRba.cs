@@ -26,6 +26,17 @@ namespace AutoRest.Ruby.Azure
         /// Gets the usage instructions for the code generator.
         /// </summary>
         public override string UsageInstructions => @"The ""gem 'ms_rest_azure' ~> 0.7"" is required for working with generated code.";
+        
+        /// <summary>
+        /// Name of the generated sub-folder inside output directory (private property).
+        /// </summary>
+        private string generatedFolderName = "generated";
+        
+        /// <summary>
+        /// Name of the generated sub-folder inside output directory.
+        /// </summary>
+        protected override string GeneratedFolderName { get { return generatedFolderName; } set { generatedFolderName = value; } }
+
 
         /// <summary>
         /// Generates Ruby code for Azure service client.
@@ -35,6 +46,7 @@ namespace AutoRest.Ruby.Azure
         public override async Task Generate(CodeModel cm)
         {
             var codeModel = cm as CodeModelRba;
+            generatedFolderName = Path.Combine(codeModel.ApiVersion, "generated");
             if (codeModel == null)
             {
                 throw new InvalidCastException("CodeModel is not a Azure Ruby code model.");

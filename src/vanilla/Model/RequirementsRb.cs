@@ -19,14 +19,14 @@ namespace AutoRest.Ruby.Model
     public class RequirementsRb
     {
         /// <summary>
-        /// Name of the generated sub-folder inside ourput directory.
+        /// Name of the generated sub-folder inside output directory.
         /// </summary>
-        private const string GeneratedFolderName = "generated";
+        protected virtual string GeneratedFolderName { get { return "generated"; } }
 
         /// <summary>
         /// Format for the autoload module.
         /// </summary>
-        private const string AutoloadFormat = "autoload :{0},{1}'" + GeneratedFolderName + "/{2}/{3}'";
+        private string AutoloadFormat { get { return "autoload :{0},{1}'" + GeneratedFolderName + "/{2}/{3}'"; } }
 
         /// <summary>
         /// Number of spaces between class name and file name required for better readability.

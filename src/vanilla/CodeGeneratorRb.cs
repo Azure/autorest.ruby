@@ -20,9 +20,9 @@ namespace AutoRest.Ruby
     public class CodeGeneratorRb : CodeGenerator
     {
         /// <summary>
-        ///     Name of the generated sub-folder inside ourput directory.
+        ///     Name of the generated sub-folder inside output directory.
         /// </summary>
-        private const string GeneratedFolderName = "generated";
+        protected virtual string GeneratedFolderName { get { return "generated"; } set { GeneratedFolderName = value; } }
 
         /// <summary>
         ///     Gets the file extension of the generated code files.
