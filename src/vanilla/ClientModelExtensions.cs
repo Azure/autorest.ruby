@@ -179,7 +179,7 @@ namespace AutoRest.Ruby
         }
 
         /// <summary>
-        /// Format the value of a sequence given the modeled element format. Note that only sequences of strings are supported.
+        /// Format the value of a sequence given the modeled element format.
         /// </summary>
         /// <param name="parameter">The parameter to format.</param>
         /// <returns>A reference to the formatted parameter value.</returns>
