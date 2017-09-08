@@ -198,10 +198,10 @@ namespace AutoRest.Ruby
                 primaryType = New<PrimaryType>(KnownPrimaryType.String);
             }
 
-            if (primaryType == null || primaryType.KnownPrimaryType != KnownPrimaryType.String)
+            if (primaryType == null)
             {
                 throw new InvalidOperationException(
-                    "Cannot generate a formatted sequence from a " + $"non-string array parameter {parameter}");
+                    "Cannot generate a formatted sequence from a " + $"null parameter {parameter}");
             }
 
             return string.Format("{0}.nil? ? nil : {0}.join('{1}')", parameter.Name, parameter.CollectionFormat.GetSeparator());
