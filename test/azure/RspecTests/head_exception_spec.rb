@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/head_exceptions'
 
 require 'rspec'
-require 'generated/head_exceptions'
+require '1.0.0/generated/head_exceptions'
 
 include HeadExceptionsModule
 
