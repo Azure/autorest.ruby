@@ -51,7 +51,7 @@ namespace AutoRest.Ruby.Azure.Model
                 if (this.BaseModelType.Extensions.ContainsKey(AzureExtensions.ExternalExtension) ||
                     this.BaseModelType.Extensions.ContainsKey(AzureExtensions.AzureResourceExtension))
                 {
-                    if (!resourceOrSubResourceRegEx.IsMatch(typeName) || !IsResourceModelMatchingStandardDefinition(this))
+                    if (resourceOrSubResourceRegEx.IsMatch(typeName) || IsResourceModelMatchingStandardDefinition(this))
                     {
                         typeName = "MsRestAzure::" + typeName;
                     }
@@ -68,22 +68,21 @@ namespace AutoRest.Ruby.Azure.Model
         }
 
         /// <summary>
-        /// Checks if the provided definition of models 'Resource'/'SubResource' matches the standard definition,
-        /// as defined in MsRestAzure. For other models, it returns false.
+        /// Checks if the provided definition of model matches the standard definition of 'Resource'/'SubResource',
+        /// as defined in MsRestAzure.
         /// </summary>
-        /// <param name="model">to be validated</param>
-        /// <returns></returns>
+        /// <param name="model">CompositeType model to be validated.</param>
+        /// <returns><c>true</c> if model matches standard name and definition of Resource or SubResource, <c>false</c> otherwise.</returns>
         public static bool IsResourceModelMatchingStandardDefinition(CompositeType model)
         {
             string modelName = model.Name.ToString();
-            if (modelName.EqualsIgnoreCase("SubResource") &&
-                model.Properties.All(property => subResourceRegEx.IsMatch(property.Name.ToString())))
+            if (!resourceOrSubResourceRegEx.IsMatch(modelName))
             {
-                return true;
+                return false;
             }
 
-            if(modelName.EqualsIgnoreCase("Resource") &&
-               model.Properties.All(property => resourceRegEx.IsMatch(property.Name.ToString())))
+            if (model.Properties.All(property => subResourceRegEx.IsMatch(property.Name.ToString())) || 
+                model.Properties.All(property => resourceRegEx.IsMatch(property.Name.ToString())))
             {
                 return true;
             }
