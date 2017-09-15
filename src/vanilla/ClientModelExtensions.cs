@@ -191,19 +191,6 @@ namespace AutoRest.Ruby
                 return parameter.Name;
             }
 
-            PrimaryType primaryType = sequence.ElementType as PrimaryType;
-            EnumType enumType = sequence.ElementType as EnumType;
-            if (enumType != null && enumType.ModelAsString)
-            {
-                primaryType = New<PrimaryType>(KnownPrimaryType.String);
-            }
-
-            if (primaryType == null)
-            {
-                throw new InvalidOperationException(
-                    "Cannot generate a formatted sequence from a " + $"null parameter {parameter}");
-            }
-
             return string.Format("{0}.nil? ? nil : {0}.join('{1}')", parameter.Name, parameter.CollectionFormat.GetSeparator());
         }
 
