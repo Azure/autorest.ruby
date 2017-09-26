@@ -94,6 +94,10 @@ rubyAzureMappings = {
   'parameter_grouping':['azure-parameter-grouping.json', 'ParameterGroupingModule']
 }
 
+rubyAzureAdditionalMappings = {
+  'azure_resource_inheritance': ['resource_inheritance.json', 'AzureResourceInheritanceModule']
+}
+
 swaggerDir = "node_modules/@microsoft.azure/autorest.testserver/swagger"
 
 task 'regenerate-rubyazure', '', (done) ->
@@ -101,6 +105,20 @@ task 'regenerate-rubyazure', '', (done) ->
     'outputBaseDir': 'test/azure',
     'inputBaseDir': swaggerDir,
     'mappings': rubyAzureMappings,
+    'outputDir': 'RspecTests/Generated',
+    'language': 'ruby',
+    'azureArm': true,
+    'nsPrefix': 'MyNamespace'
+  },done
+  return null
+
+testSwaggerDir = "test/swagger"
+
+task 'regenerate-rubyazure-additional', '', (done) ->
+  regenExpected {
+    'outputBaseDir': 'test/azure',
+    'inputBaseDir': testSwaggerDir,
+    'mappings': rubyAzureAdditionalMappings,
     'outputDir': 'RspecTests/Generated',
     'language': 'ruby',
     'azureArm': true,
@@ -119,5 +137,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure'], (done) ->
+task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional'], (done) ->
   done();
