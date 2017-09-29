@@ -7,7 +7,7 @@ require 'generated/resource_inheritance'
 
 include AzureResourceInheritanceModule
 
-describe 'ResourceInheritance' do
+describe 'ModelsGenerationAndInheritance' do
   before(:all) do
     @base_url = ENV['StubServerURI']
 
@@ -17,7 +17,7 @@ describe 'ResourceInheritance' do
     @client = AzureResourceInheritanceTest.new(@credentials, @base_url)
   end
 
-  it 'should generate expected resource models' do
+  it 'should generate expected models' do
     modules = Module.const_get('AzureResourceInheritanceModule::Models')
 
     # Should generate AzureResource class
@@ -40,7 +40,7 @@ describe 'ResourceInheritance' do
   it 'should generate models with expected inheritance' do
     modules = Module.const_get('AzureResourceInheritanceModule::Models')
 
-    # Should generate InheritMsRestAzureResource with super class as MsRestAzure::Resource
+    # Should generate InheritMsRestAzureResource with super class as AzureResourceInheritanceModule::Models::Resource
     inherit_ms_rest_azure_resource = modules.const_get('InheritMsRestAzureResource')
     expect(inherit_ms_rest_azure_resource.is_a?(Class)).to be_truthy
     expect(inherit_ms_rest_azure_resource.superclass.name).to eq('AzureResourceInheritanceModule::Models::Resource')
