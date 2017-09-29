@@ -67,11 +67,8 @@ namespace AutoRest.Ruby.Azure
                     continue;
                 }
 
-                var modelTemplate = new AzureModelTemplate { Model = model };
-                if (!CompositeTypeRba.resourceOrSubResourceRegEx.IsMatch(model.Name) || !CompositeTypeRba.IsResourceModelMatchingStandardDefinition(model))
-                {
-                    await Write(modelTemplate, Path.Combine(GeneratorSettingsRb.Instance.modelsPath, CodeNamer.UnderscoreCase(model.Name) + ImplementationFileExtension));
-                }
+                var modelTemplate = new ModelTemplate { Model = model };
+                await Write(modelTemplate, Path.Combine(GeneratorSettingsRb.Instance.modelsPath, CodeNamer.UnderscoreCase(model.Name) + ImplementationFileExtension));
             }
             // Paged Models
             foreach (var pageModel in codeModel.pageModels)

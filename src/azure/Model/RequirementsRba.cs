@@ -21,8 +21,7 @@ namespace AutoRest.Ruby.Azure.Model
         protected override bool ExcludeModel(CompositeType model)
         {
             return (model.Extensions.ContainsKey(AzureExtensions.ExternalExtension) && 
-                    (bool) model.Extensions[AzureExtensions.ExternalExtension]) 
-                    ||CompositeTypeRba.IsResourceModelMatchingStandardDefinition(model);
+                    (bool) model.Extensions[AzureExtensions.ExternalExtension]);
         }
 
         /// <summary>
