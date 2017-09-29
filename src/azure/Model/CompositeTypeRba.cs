@@ -46,9 +46,7 @@ namespace AutoRest.Ruby.Azure.Model
         {
             if (this.BaseModelType != null)
             {
-                string typeName = this.BaseModelType.Name;
-
-                return " < " + typeName;
+                return " < " + this.BaseModelType.Name;
             }
 
             return string.Empty;
