@@ -714,14 +714,15 @@ namespace AutoRest.Ruby
                 {
                     var prop = composedPropertyList[i];
                     var serializedPropertyName = prop.SerializedName;
+                    string propertyName = ModifyString(prop.Name);
 
                     if (i != composedPropertyList.Count - 1)
                     {
-                        builder.AppendLine("{0}: {{{1}}},", prop.Name, prop.ModelType.ConstructMapper(serializedPropertyName, prop, false));
+                        builder.AppendLine("{0}: {{{1}}},", propertyName, prop.ModelType.ConstructMapper(serializedPropertyName, prop, false));
                     }
                     else
                     {
-                        builder.AppendLine("{0}: {{{1}}}", prop.Name, prop.ModelType.ConstructMapper(serializedPropertyName, prop, false));
+                        builder.AppendLine("{0}: {{{1}}}", propertyName, prop.ModelType.ConstructMapper(serializedPropertyName, prop, false));
                     }
                 }
                 // end of modelProperties and type
@@ -731,6 +732,11 @@ namespace AutoRest.Ruby
             }
 
             return builder.ToString();
+        }
+
+        public static string ModifyString(string name)
+        {
+            return name.Replace('.','_');
         }
     }
 }
