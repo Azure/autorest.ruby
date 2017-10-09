@@ -95,7 +95,8 @@ rubyAzureMappings = {
 }
 
 rubyAzureAdditionalMappings = {
-  'azure_resource_inheritance': ['resource_inheritance.json', 'AzureResourceInheritanceModule']
+  'azure_resource_inheritance': ['resource_inheritance.json', 'AzureResourceInheritanceModule'],
+  'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule']
 }
 
 swaggerDir = "node_modules/@microsoft.azure/autorest.testserver/swagger"
