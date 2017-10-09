@@ -125,7 +125,7 @@ namespace AutoRest.Ruby.Model
 
         private string ModifyString(string name)
         {
-            return name.Replace('.','_');
+            return name.Replace(".", string.Empty);
         }
 
         public string BuildSummaryAndDescriptionString()

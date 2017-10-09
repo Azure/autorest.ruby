@@ -736,7 +736,7 @@ namespace AutoRest.Ruby
 
         public static string ModifyString(string name)
         {
-            return name.Replace('.','_');
+            return name.Replace(".", string.Empty);
         }
     }
 }

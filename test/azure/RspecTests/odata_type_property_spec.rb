@@ -18,8 +18,8 @@ describe 'OdataTypeProperty' do
   end
 
   it 'should generate models with expected inheritance' do
-    expect(AzureODataTypePropertyModule::Models::LocationThresholdRuleCondition.instance_methods.include? :odata_type).to eq(true)
-    expect(AzureODataTypePropertyModule::Models::RuleCondition.instance_methods.include? :odata_type).to eq(true)
-    expect(AzureODataTypePropertyModule::Models::RuleDataSource.instance_methods.include? :odata_type).to eq(true)
+    expect(AzureODataTypePropertyModule::Models::LocationThresholdRuleCondition.instance_methods.include? :odatatype).to eq(true)
+    expect(AzureODataTypePropertyModule::Models::RuleCondition.instance_methods.include? :odatatype).to eq(true)
+    expect(AzureODataTypePropertyModule::Models::RuleDataSource.instance_methods.include? :odatatype).to eq(true)
   end
 end
