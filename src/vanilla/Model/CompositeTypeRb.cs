@@ -113,6 +113,21 @@ namespace AutoRest.Ruby.Model
             return builder.ToString();
         }
 
+        public string GetAttributeAccessorForPolymorphicDiscriminatorProperty()
+        {
+            return "attr_accessor :" + this.ModifyString(this.PolymorphicDiscriminatorProperty.Name);
+        }
+
+        public string GetInitializeForPolymorphicDiscriminatorProperty()
+        {
+            return "@" + this.ModifyString(this.PolymorphicDiscriminatorProperty.Name) + " = \"" +  this.SerializedName +"\"";
+        }
+
+        private string ModifyString(string name)
+        {
+            return name.Replace(".", string.Empty);
+        }
+
         public string BuildSummaryAndDescriptionString()
         {
             string summaryString = string.IsNullOrWhiteSpace(this.Summary) &&

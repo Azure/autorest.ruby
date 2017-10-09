@@ -36,10 +36,10 @@ module @(Settings.Namespace)
     {
     @EmptyLine
       @:def initialize
-      @:  @@@Model.PolymorphicDiscriminatorProperty.Name = "@Model.SerializedName"
+        @:@(Model.GetInitializeForPolymorphicDiscriminatorProperty())
       @:end
     @EmptyLine
-      @:attr_accessor :@Model.PolymorphicDiscriminatorProperty.Name
+      @:@(Model.GetAttributeAccessorForPolymorphicDiscriminatorProperty())
     @EmptyLine
     }
     
