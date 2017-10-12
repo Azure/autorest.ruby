@@ -14,6 +14,11 @@ namespace AutoRest.Ruby.Azure.Model
     class RequirementsRba : RequirementsRb
     {
         /// <summary>
+        /// Name of the generated sub-folder inside output directory.
+        /// </summary>
+        protected override string GeneratedFolderName { get { return this.CodeModel.ApiVersion + "/generated"; } }
+        
+        /// <summary>
         /// Checks whether model should be excluded from producing.
         /// </summary>
         /// <param name="model">The model.</param>

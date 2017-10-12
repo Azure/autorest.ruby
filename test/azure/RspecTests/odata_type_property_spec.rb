@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/odata_type_property'
 
 require 'rspec'
-require 'generated/odata_type_property'
+require '1.0.0/generated/odata_type_property'
 
 include AzureODataTypePropertyModule
 

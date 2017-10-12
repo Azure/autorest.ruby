@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/parameter_grouping'
 
 require 'rspec'
-require 'generated/azure_parameter_grouping'
+require '1.0.0/generated/azure_parameter_grouping'
 
 include ParameterGroupingModule
 include ParameterGroupingModule::Models

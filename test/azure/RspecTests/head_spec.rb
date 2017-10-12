@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/head'
 
 require 'rspec'
-require 'generated/head'
+require '1.0.0/generated/head'
 
 include HeadModule
 
