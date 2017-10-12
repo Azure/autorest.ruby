@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/azure_resource_inheritance'
 
 require 'rspec'
-require 'generated/resource_inheritance'
+require '1.0.0/generated/resource_inheritance'
 
 include AzureResourceInheritanceModule
 
