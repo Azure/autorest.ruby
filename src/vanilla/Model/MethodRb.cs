@@ -649,5 +649,104 @@ namespace AutoRest.Ruby.Model
                     "{0}.nil?", m.InputParameter.Name)));
             }
         }
+
+        public string ConstructValidations(ParameterRb parameter)
+        {
+            if((bool)Settings.Instance.CustomSettings["ClientSideValidation"])
+            {
+                var builder = new IndentedStringBuilder("  ");
+                builder.AppendLine("").Indent();
+
+                if (parameter.IsRequired && !parameter.IsConstant)
+                {
+                    builder.AppendLine("fail ArgumentError, '{0} is nil' if {0}.nil?", parameter.Name);
+                }
+
+                if(parameter.Constraints != null && parameter.Constraints.Count != 0)
+                {
+                    builder.AppendLine(ConstructConstraintsString(parameter));
+                }
+
+                return builder.ToString();
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Builds the constraints checks for the given <paramref name="parameter"/>
+        /// </summary>
+        /// <param name="parameter">Parameter for which constraint checks must be built.</param>
+        /// <returns>Constraints checks expressions</returns>
+        private string ConstructConstraintsString(ParameterRb parameter)
+        {
+            var builder = new IndentedStringBuilder("  ");
+            builder.AppendLine("");
+
+            foreach (var constraint in parameter.Constraints.Keys)
+            {
+                string constraintCheck;
+                string constraintValue = parameter.Constraints[constraint];
+                switch (constraint)
+                {
+                    case Constraint.ExclusiveMaximum:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name} >= {constraintValue}";
+                        break;
+                    case Constraint.ExclusiveMinimum:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name} <= {constraintValue}";
+                        break;
+                    case Constraint.InclusiveMaximum:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name} > {constraintValue}";
+                        break;
+                    case Constraint.InclusiveMinimum:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name} < {constraintValue}";
+                        break;
+                    case Constraint.MaxItems:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.length > {constraintValue}";
+                        break;
+                    case Constraint.MaxLength:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.length > {constraintValue}";
+                        break;
+                    case Constraint.MinItems:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.length < {constraintValue}";
+                        break;
+                    case Constraint.MinLength:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.length < {constraintValue}";
+                        break;
+                    case Constraint.MultipleOf:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name} % {constraintValue} != 0";
+                        break;
+                    case Constraint.Pattern:
+                        constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.match(Regexp.new('^{constraintValue}$')).nil?";
+                        break;
+                    case Constraint.UniqueItems:
+                        if ("true".EqualsIgnoreCase(constraintValue))
+                        {
+                            constraintCheck = $"!{parameter.Name}.nil? && {parameter.Name}.length != {parameter.Name}.uniq.length";
+                        }
+                        else
+                        {
+                            constraintCheck = null;
+                        }
+                        break;
+                    default:
+                        throw new NotSupportedException("Constraint '" + constraint + "' is not supported.");
+                }
+
+                if (constraintCheck != null)
+                {
+                    var escapedValueReference = parameter.Name.Value.Replace("'", "\\'");
+                    if (constraint != Constraint.UniqueItems)
+                    {
+                        builder.AppendLine("fail ArgumentError, \"'{0}' should satisfy the constraint - '{1}': '{2}'\" if {3} ", escapedValueReference, constraint, constraintValue, constraintCheck);
+                    }
+                    else
+                    {
+                        builder.AppendLine("fail ArgumentError, \"'{0}' should satisfy the constraint - '{1}'\" if {3} ", escapedValueReference, constraint, constraintValue, constraintCheck);
+                    }
+                }
+            }
+
+            return builder.ToString();
+        }
     }
 }

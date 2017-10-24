@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using AutoRest.Core;
 using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
 using AutoRest.Ruby.Model;
@@ -415,6 +416,15 @@ namespace AutoRest.Ruby
             if (composite != null && composite.ContainsConstantProperties && isRequired)
             {
                 defaultValue = "{}";
+            }
+
+            if((bool)Settings.Instance.CustomSettings["ClientSideValidation"])
+            {
+                builder.AppendLine("client_side_validation: true,");
+            }
+            else
+            {
+                builder.AppendLine("client_side_validation: false,");
             }
 
             if (isRequired)

@@ -51,6 +51,10 @@ regenExpected = (opts,done) ->
     if (opts['override-info.description'])
       args.push("--override-info.description=#{opts['override-info.description']}")
 
+    if (typeof opts.clientSideValidation != 'undefined')
+      if (!opts.clientSideValidation)
+        args.push("--client-side-validation=false")
+
     autorest args,() =>
       instances--
       return done() if instances is 0 
@@ -96,7 +100,12 @@ rubyAzureMappings = {
 
 rubyAzureAdditionalMappings = {
   'azure_resource_inheritance': ['resource_inheritance.json', 'AzureResourceInheritanceModule'],
-  'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule']
+  'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule'],
+  'parameters_constraints': ['parameters_constraints.json', 'AzureParametersConstraintsModule']
+}
+
+rubyAzureNoValidationsMappings = {
+  'constraints_no_validations': ['constraints_no_validations.json', 'AzureConstraintsNoValidationsModule']
 }
 
 swaggerDir = "node_modules/@microsoft.azure/autorest.testserver/swagger"
@@ -114,6 +123,19 @@ task 'regenerate-rubyazure', '', (done) ->
   return null
 
 testSwaggerDir = "test/swagger"
+
+task 'regenerate-rubyazure-novalidation', '', (done) ->
+  regenExpected {
+    'outputBaseDir': 'test/azure',
+    'inputBaseDir': testSwaggerDir,
+    'mappings': rubyAzureNoValidationsMappings,
+    'outputDir': 'RspecTests/Generated',
+    'language': 'ruby',
+    'azureArm': true,
+    'nsPrefix': 'MyNamespace',
+    'clientSideValidation': false
+  },done
+  return null
 
 task 'regenerate-rubyazure-additional', '', (done) ->
   regenExpected {
@@ -138,5 +160,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional'], (done) ->
+task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-rubyazure-novalidation'], (done) ->
   done();

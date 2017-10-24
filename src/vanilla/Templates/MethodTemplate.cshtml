@@ -79,15 +79,11 @@ end
 def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
   @foreach (var parameter in Model.ParameterTemplateModels)
   {
-    if (parameter.IsRequired && !parameter.IsConstant)
+    @(Model.ConstructValidations(parameter))
+    if (parameter.IsConstant)
     {
-  @:fail ArgumentError, '@parameter.Name is nil' if @(parameter.Name).nil?
-  @:
-    }
-      if (parameter.IsConstant)
-      {
   @:@(parameter.Name) = @(parameter.DefaultValue)
-     } 
+    }
 }
 @EmptyLine
 @(Model.BuildInputParameterMappings())
