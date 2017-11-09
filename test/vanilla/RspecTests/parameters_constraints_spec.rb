@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/parameters_constraints'
 
 require 'rspec'
-require '1.0.0/generated/parameters_constraints'
+require 'generated/parameters_constraints'
 
 include AzureParametersConstraintsModule
 

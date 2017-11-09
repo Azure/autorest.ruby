@@ -83,7 +83,7 @@ rubyMappings = {
   'parameter_flattening':['parameter-flattening.json', 'ParameterFlatteningModule'],
   'validation':['validation.json', 'ValidationModule'],
   'custom_base_uri':['custom-baseUrl.json', 'CustomBaseUriModule'],
-  'custom_base_uri_more':['custom-baseUrl-more-options.json', 'CustomBaseUriMoreModule']
+  'custom_base_uri_more':['custom-baseUrl-more-options.json', 'CustomBaseUriMoreModule']  
 }
 
 rubyAzureMappings = {
@@ -100,7 +100,10 @@ rubyAzureMappings = {
 
 rubyAzureAdditionalMappings = {
   'azure_resource_inheritance': ['resource_inheritance.json', 'AzureResourceInheritanceModule'],
-  'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule'],
+  'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule']
+}
+
+rubyAzureValidationsMappings = {
   'parameters_constraints': ['parameters_constraints.json', 'AzureParametersConstraintsModule']
 }
 
@@ -124,14 +127,24 @@ task 'regenerate-rubyazure', '', (done) ->
 
 testSwaggerDir = "test/swagger"
 
+task 'regenerate-rubyazure-validations', '', (done) ->
+  regenExpected {
+    'outputBaseDir': 'test/vanilla',
+    'inputBaseDir': testSwaggerDir,
+    'mappings': rubyAzureValidationsMappings,
+    'outputDir': 'RspecTests/Generated',
+    'language': 'ruby',
+    'nsPrefix': 'MyNamespace'
+  },done
+  return null
+
 task 'regenerate-rubyazure-novalidation', '', (done) ->
   regenExpected {
-    'outputBaseDir': 'test/azure',
+    'outputBaseDir': 'test/vanilla',
     'inputBaseDir': testSwaggerDir,
     'mappings': rubyAzureNoValidationsMappings,
     'outputDir': 'RspecTests/Generated',
     'language': 'ruby',
-    'azureArm': true,
     'nsPrefix': 'MyNamespace',
     'clientSideValidation': false
   },done
@@ -160,5 +173,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-rubyazure-novalidation'], (done) ->
+task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-rubyazure-validations', 'regenerate-rubyazure-novalidation'], (done) ->
   done();

@@ -3,7 +3,7 @@
 $: << 'RspecTests/Generated/constraints_no_validations'
 
 require 'rspec'
-require '1.0.0/generated/constraints_no_validations'
+require 'generated/constraints_no_validations'
 
 include AzureConstraintsNoValidationsModule
 
