@@ -88,13 +88,6 @@ namespace AutoRest.Ruby.Azure
             var requirementsTemplate = new RequirementsTemplate{Model = new RequirementsRba(codeModel, this)};
             await Write(requirementsTemplate, CodeNamer.UnderscoreCase(GeneratorSettingsRb.Instance.packageName ?? GeneratorSettingsRb.Instance.sdkName) + ImplementationFileExtension);
 
-            // Version File
-            if (GeneratorSettingsRb.Instance.packageVersion != null)
-            {
-                var versionTemplate = new VersionTemplate { Model = GeneratorSettingsRb.Instance.packageVersion };
-                await Write(versionTemplate, Path.Combine(GeneratorSettingsRb.Instance.sdkPath, "version" + ImplementationFileExtension));
-            }
-
             // Module Definition File
             if (Settings.Instance.Namespace != null)
             {

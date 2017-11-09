@@ -154,9 +154,10 @@ module @Settings.Namespace
     #
     def add_telemetry
         sdk_information = '@GeneratorSettingsRb.Instance.sdkPath'
-        if defined? @Settings.Namespace::VERSION
-          sdk_information = "#{sdk_information}/#{@Settings.Namespace::VERSION}" 
-        end
+        @if (!string.IsNullOrEmpty(Settings.PackageVersion))
+        {
+        @:sdk_information = "#{sdk_information}/@Settings.PackageVersion" 
+        }
         add_user_agent_information(sdk_information)
     end
   end
