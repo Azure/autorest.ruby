@@ -662,7 +662,7 @@ namespace AutoRest.Ruby.Model
                     builder.AppendLine("fail ArgumentError, '{0} is nil' if {0}.nil?", parameter.Name);
                 }
 
-                if(parameter.Constraints != null && parameter.Constraints.Count != 0)
+                if (parameter.Constraints != null && parameter.Constraints.Count != 0)
                 {
                     builder.AppendLine(ConstructConstraintsString(parameter));
                 }
