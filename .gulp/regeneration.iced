@@ -103,11 +103,11 @@ rubyAzureAdditionalMappings = {
   'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule']
 }
 
-rubyAzureValidationsMappings = {
+rubyValidationsMappings = {
   'parameters_constraints': ['parameters_constraints.json', 'AzureParametersConstraintsModule']
 }
 
-rubyAzureNoValidationsMappings = {
+rubyNoValidationsMappings = {
   'constraints_no_validations': ['constraints_no_validations.json', 'AzureConstraintsNoValidationsModule']
 }
 
@@ -127,22 +127,22 @@ task 'regenerate-rubyazure', '', (done) ->
 
 testSwaggerDir = "test/swagger"
 
-task 'regenerate-rubyazure-validations', '', (done) ->
+task 'regenerate-ruby-validations', '', (done) ->
   regenExpected {
     'outputBaseDir': 'test/vanilla',
     'inputBaseDir': testSwaggerDir,
-    'mappings': rubyAzureValidationsMappings,
+    'mappings': rubyValidationsMappings,
     'outputDir': 'RspecTests/Generated',
     'language': 'ruby',
     'nsPrefix': 'MyNamespace'
   },done
   return null
 
-task 'regenerate-rubyazure-novalidation', '', (done) ->
+task 'regenerate-ruby-novalidation', '', (done) ->
   regenExpected {
     'outputBaseDir': 'test/vanilla',
     'inputBaseDir': testSwaggerDir,
-    'mappings': rubyAzureNoValidationsMappings,
+    'mappings': rubyNoValidationsMappings,
     'outputDir': 'RspecTests/Generated',
     'language': 'ruby',
     'nsPrefix': 'MyNamespace',
@@ -173,5 +173,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-rubyazure-validations', 'regenerate-rubyazure-novalidation'], (done) ->
+task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-ruby-validations', 'regenerate-ruby-novalidation'], (done) ->
   done();
