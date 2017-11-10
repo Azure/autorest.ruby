@@ -51,6 +51,10 @@ regenExpected = (opts,done) ->
     if (opts['override-info.description'])
       args.push("--override-info.description=#{opts['override-info.description']}")
 
+    if (typeof opts.clientSideValidation != 'undefined')
+      if (!opts.clientSideValidation)
+        args.push("--client-side-validation=false")
+
     autorest args,() =>
       instances--
       return done() if instances is 0 
@@ -79,7 +83,7 @@ rubyMappings = {
   'parameter_flattening':['parameter-flattening.json', 'ParameterFlatteningModule'],
   'validation':['validation.json', 'ValidationModule'],
   'custom_base_uri':['custom-baseUrl.json', 'CustomBaseUriModule'],
-  'custom_base_uri_more':['custom-baseUrl-more-options.json', 'CustomBaseUriMoreModule']
+  'custom_base_uri_more':['custom-baseUrl-more-options.json', 'CustomBaseUriMoreModule']  
 }
 
 rubyAzureMappings = {
@@ -99,6 +103,14 @@ rubyAzureAdditionalMappings = {
   'odata_type_property': ['odata_type_property.json', 'AzureODataTypePropertyModule']
 }
 
+rubyValidationsMappings = {
+  'parameters_constraints': ['parameters_constraints.json', 'AzureParametersConstraintsModule']
+}
+
+rubyNoValidationsMappings = {
+  'constraints_no_validations': ['constraints_no_validations.json', 'AzureConstraintsNoValidationsModule']
+}
+
 swaggerDir = "node_modules/@microsoft.azure/autorest.testserver/swagger"
 
 task 'regenerate-rubyazure', '', (done) ->
@@ -114,6 +126,29 @@ task 'regenerate-rubyazure', '', (done) ->
   return null
 
 testSwaggerDir = "test/swagger"
+
+task 'regenerate-ruby-validations', '', (done) ->
+  regenExpected {
+    'outputBaseDir': 'test/vanilla',
+    'inputBaseDir': testSwaggerDir,
+    'mappings': rubyValidationsMappings,
+    'outputDir': 'RspecTests/Generated',
+    'language': 'ruby',
+    'nsPrefix': 'MyNamespace'
+  },done
+  return null
+
+task 'regenerate-ruby-novalidation', '', (done) ->
+  regenExpected {
+    'outputBaseDir': 'test/vanilla',
+    'inputBaseDir': testSwaggerDir,
+    'mappings': rubyNoValidationsMappings,
+    'outputDir': 'RspecTests/Generated',
+    'language': 'ruby',
+    'nsPrefix': 'MyNamespace',
+    'clientSideValidation': false
+  },done
+  return null
 
 task 'regenerate-rubyazure-additional', '', (done) ->
   regenExpected {
@@ -138,5 +173,5 @@ task 'regenerate-ruby', '', (done) ->
   },done
   return null
 
-task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional'], (done) ->
+task 'regenerate', "regenerate expected code for tests", ['regenerate-ruby', 'regenerate-rubyazure', 'regenerate-rubyazure-additional', 'regenerate-ruby-validations', 'regenerate-ruby-novalidation'], (done) ->
   done();

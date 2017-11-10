@@ -1,0 +1,211 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Constraints No Validations",
+    "version": "1.0.0"
+  },
+  "host": "localhost",
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "paths": {
+    "/fakepath/{subscriptionId}/{resourceGroupName}/{id}/{inclusiveMaximumMinimumParameter}/{exclusiveMaximumMinimumParameter}/{maximumMinimumLengthParameter}?api-version={apiVersion}": {
+      "get": {
+        "operationId": "validationOfMethodParameters",
+        "summary": "",
+        "description": "Validates input parameters on the method. See swagger for details.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParamterer"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "description": "Required string between 3 and 10 chars with pattern [a-zA-Z0-9]+.",
+            "required": true,
+            "type": "string",
+            "maxLength": 10,
+            "minLength": 3,
+            "pattern": "[a-zA-Z0-9]+"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Required int multiple of 10 from 100 to 1000.",
+            "required": true,
+            "type": "integer",
+            "multipleOf": 10,
+            "maximum": 1000,
+            "minimum": 100
+          },
+          {
+            "name": "inclusiveMaximumMinimumParameter",
+            "in": "path",
+            "description": "Inclusive Maximum Minimum Parameter",
+            "type": "integer",
+            "required": true,
+            "minimum": 5,
+            "maximum": 10
+          },
+          {
+            "name": "exclusiveMaximumMinimumParameter",
+            "in": "path",
+            "description": "Exclusive Maximum Minimum Parameter",
+            "type": "integer",
+            "exclusiveMinimum": true,
+            "exclusiveMaximum": true,
+            "required": true,
+            "minimum": 5,
+            "maximum": 10
+          },
+          {
+            "name": "maximumMinimumLengthParameter",
+            "in": "path",
+            "description": "Maximum Minimum Length Parameter",
+            "type": "string",
+            "required": true,
+            "minLength": 5,
+            "maxLength": 10
+          },
+          {
+            "name": "maximumMinimumItemsParameter",
+            "in": "query",
+            "description": "Maximum Minimum Items Parameter",
+            "type": "array",
+            "collectionFormat": "csv",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "minItems": 2
+          },
+          {
+            "name": "uniqueItemsParameter",
+            "in": "query",
+            "description": "Unique Items Parameter",
+            "type": "array",
+            "collectionFormat": "csv",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "tags": [
+          "Redis"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of caches",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "description": "The product documentation.",
+      "properties": {
+        "display_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Non required array of unique items from 0 to 6 elements.",
+          "maxItems": 6,
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "capacity": {
+          "type": "integer",
+          "description": "Non required int betwen 0 and 100 exclusive.",          
+          "maximum": 100,
+          "minimum": 0,
+          "multipleOf": 10
+        },
+        "image": {
+          "type": "string",
+          "description": "Image URL representing the product.",
+          "minLength": 5,
+          "maxLength": 10,
+          "pattern": "http://\\w+"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Resource"
+        }
+      ]
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Resource": {
+      "properties": {
+        "id": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Fully qualified resource Id for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The name of the resource"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The type of the resource. Ex- Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts."
+        }
+      },
+      "x-ms-azure-resource": true
+    }
+  },
+  "parameters": {
+    "SubscriptionIdParamterer": {
+      "name": "subscriptionId",
+      "in": "path",
+      "description": "Subscription ID.",
+      "required": true,
+      "type": "string"
+    },
+    "ApiVersionParameter": {
+      "name": "apiVersion",
+      "in": "query",
+      "description": "Required string following pattern \\d{4}-\\d{2}-\\d{2}",
+      "required": true,
+      "type": "string",
+      "pattern": "\\d{4}-\\d{2}-\\d{2}"
+    }
+  }
+}
