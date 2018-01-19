@@ -129,6 +129,10 @@ module @Settings.Namespace
       @EmptyLine
       request_url = options[:base_url] || @@base_url
 
+      if(!options[:headers].nil? && !options[:headers]['Content-Type'].nil?)
+        @@request_headers['Content-Type'] = options[:headers]['Content-Type']
+      end
+
       @EmptyLine
       request_headers = @@request_headers
       @Model.MergeClientDefaultHeaders

@@ -42,10 +42,6 @@ module HeaderModule
       expect(result.response['user-agent']).to eq('overwrite')
     end
 
-    it 'should not allow to post param protected key' do
-      expect { result = @header_client.param_protected_key_async('text/html').value! }.to raise_error(RuntimeError)
-    end
-
     it 'should get response protected key' do
       result = @header_client.response_protected_key_async().value!
       expect(result.response.status).to eq(200)

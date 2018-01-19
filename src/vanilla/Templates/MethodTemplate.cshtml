@@ -89,6 +89,11 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
 @(Model.BuildInputParameterMappings())
 @EmptyLine
   request_headers = {}
+@if (Model.RequestBody != null)
+{
+  @EmptyLine
+  @:request_headers['Content-Type'] = '@(Model.RequestContentType)'
+}
 @if (Model.LogicalParameters.Any(p => p.Location == ParameterLocation.Header))
 {
   @EmptyLine
@@ -96,18 +101,12 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
   @:@(Model.SetDefaultHeaders)
   foreach (var parameter in Model.LogicalParameters.Where(p => p.Location == ParameterLocation.Header))
   {
-    if (parameter.SerializedName.EqualsIgnoreCase("Content-Type"))
-    {
-  @:fail RuntimeError, 'Header Content-Type is forbidden to change'
-    }
   @:request_headers['@(parameter.SerializedName)'] = @(parameter.ModelType.ToString(parameter.Name)) unless @(parameter.ModelType.ToString(parameter.Name)).nil?
   }
 }
 
 @if (Model.RequestBody != null)
 {
-  @EmptyLine
-  @:request_headers['Content-Type'] = '@(Model.RequestContentType)'
   @EmptyLine
   @:# Serialize Request
   @:@Model.ConstructRequestBodyMapper("request_mapper")
