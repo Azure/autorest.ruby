@@ -89,11 +89,7 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
 @(Model.BuildInputParameterMappings())
 @EmptyLine
   request_headers = {}
-@if (Model.RequestBody != null)
-{
-  @EmptyLine
-  @:request_headers['Content-Type'] = '@(Model.RequestContentType)'
-}
+  request_headers['Content-Type'] = '@(Model.RequestContentType)'
 @if (Model.LogicalParameters.Any(p => p.Location == ParameterLocation.Header))
 {
   @EmptyLine
@@ -104,6 +100,18 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
   @:request_headers['@(parameter.SerializedName)'] = @(parameter.ModelType.ToString(parameter.Name)) unless @(parameter.ModelType.ToString(parameter.Name)).nil?
   }
 }
+@if (Model.LogicalParameters.Any(p => p.Location == ParameterLocation.FormData))
+{
+  @EmptyLine
+  @:# Set Form Data
+  @:form_data = {}
+  foreach (var parameter in Model.LogicalParameters.Where(p => p.Location == ParameterLocation.FormData))
+  {
+  @:form_data['@(parameter.SerializedName)'] = @(parameter.ModelType.ToString(parameter.Name)) unless @(parameter.ModelType.ToString(parameter.Name)).nil?
+  }
+  @EmptyLine
+}
+
 
 @if (Model.RequestBody != null)
 {
@@ -145,6 +153,10 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
       @:body: request_content,
 }
       headers: request_headers.merge(custom_headers || {}),
+@if (Model.LogicalParameters.Any(p => p.Location == ParameterLocation.FormData))
+{
+      @:body: URI.encode_www_form(form_data),
+}
       base_url: request_url
   }
   
