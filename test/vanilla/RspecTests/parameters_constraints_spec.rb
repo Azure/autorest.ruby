@@ -39,8 +39,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'inclusive_maximum_minimum_parameter' should satisfy the constraint - 'InclusiveMaximum': '10'")
   end
@@ -54,8 +54,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'inclusive_maximum_minimum_parameter' should satisfy the constraint - 'InclusiveMinimum': '5'")
   end
@@ -69,8 +69,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'exclusive_maximum_minimum_parameter' should satisfy the constraint - 'ExclusiveMaximum': '10'")
   end
@@ -84,8 +84,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'exclusive_maximum_minimum_parameter' should satisfy the constraint - 'ExclusiveMinimum': '5'")
   end
@@ -99,8 +99,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'maximum_minimum_length_parameter' should satisfy the constraint - 'MaxLength': '10'")
   end
@@ -114,8 +114,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'maximum_minimum_length_parameter' should satisfy the constraint - 'MinLength': '5'")
   end
@@ -129,8 +129,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'maximum_minimum_items_parameter' should satisfy the constraint - 'MaxItems': '5'")
   end
@@ -144,8 +144,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'maximum_minimum_items_parameter' should satisfy the constraint - 'MinItems': '2'")
   end
@@ -159,8 +159,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'unique_items_parameter' should satisfy the constraint - 'UniqueItems'")
   end
@@ -174,8 +174,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'resource_group_name' should satisfy the constraint - 'Pattern': '[a-zA-Z0-9]+'")
   end
@@ -189,8 +189,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to raise_error(ArgumentError, "'id' should satisfy the constraint - 'MultipleOf': '10'")
   end
@@ -203,8 +203,8 @@ describe 'AzureParametersConstraints' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter:@maximum_minimum_items_parameter,
+        unique_items_parameter:@unique_items_parameter
       )
     }.to_not raise_error
   end

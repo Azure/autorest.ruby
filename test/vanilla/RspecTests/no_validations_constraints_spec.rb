@@ -39,8 +39,8 @@ describe 'AzureConstraintsNoValidations' do
         @inclusive_maximum_minimum_parameter,
         @exclusive_maximum_minimum_parameter,
         @maximum_minimum_length_parameter,
-        @maximum_minimum_items_parameter,
-        @unique_items_parameter
+        maximum_minimum_items_parameter: @maximum_minimum_items_parameter,
+        unique_items_parameter: @unique_items_parameter
       )
     }.to_not raise_error
   end

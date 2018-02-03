@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -260,7 +261,7 @@ namespace AutoRest.Ruby.Model
                     string format = "{0}";
                     if (!parameter.IsRequired)
                     {
-                        format = "{0} = nil";
+                        format = "{0}:nil";
                         if (!parameter.DefaultValue.IsNullOrEmpty()&& parameter.ModelType is PrimaryType)
                         {
                             PrimaryType type = parameter.ModelType as PrimaryType;
@@ -269,7 +270,7 @@ namespace AutoRest.Ruby.Model
                                 if (type.KnownPrimaryType == KnownPrimaryType.Boolean || type.KnownPrimaryType == KnownPrimaryType.Double ||
                                     type.KnownPrimaryType == KnownPrimaryType.Int || type.KnownPrimaryType == KnownPrimaryType.Long || type.KnownPrimaryType == KnownPrimaryType.String)
                                 {
-                                    format = "{0} = " + parameter.DefaultValue;
+                                    format = "{0}:" + parameter.DefaultValue;
                                 }
                             }
                         }
@@ -277,7 +278,7 @@ namespace AutoRest.Ruby.Model
                     declarations.Add(string.Format(format, parameter.Name));
                 }
 
-                declarations.Add("custom_headers = nil");
+                declarations.Add("custom_headers:nil");
 
                 return string.Join(", ", declarations);
             }
@@ -293,7 +294,34 @@ namespace AutoRest.Ruby.Model
                 var invocationParams = MethodParameters.Where(p => !p.IsConstant).Select(p => p.Name).ToList();
                 invocationParams.Add("custom_headers");
 
-                return string.Join(", ", invocationParams);
+                StringBuilder sb = new StringBuilder();
+                foreach(string invocationParam in invocationParams)
+                {
+                    if(invocationParam.Equals("custom_headers"))
+                    {
+                        sb.Append(invocationParam);
+                        sb.Append(":");
+                        sb.Append(invocationParam);
+                    }
+                    else
+                    {
+                        bool isRequired = (from parameter in MethodParameters where parameter.Name.ToString().Equals(invocationParam) select parameter.IsRequired).SingleOrDefault();
+                        if(!isRequired)
+                        {
+                            sb.Append(invocationParam);
+                            sb.Append(":");
+                            sb.Append(invocationParam);
+                            sb.Append(", ");
+                        }
+                        else
+                        {
+                            sb.Append(invocationParam);
+                            sb.Append(", ");
+                        }
+                    }
+                }
+
+                return sb.ToString();
             }
         }
 
