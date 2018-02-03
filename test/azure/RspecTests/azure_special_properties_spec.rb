@@ -92,7 +92,7 @@ describe 'Azure Special properties behaviour' do
   end
 
   it 'should successfully get nil value if ms-global false' do
-    result = @client.api_version_local.get_method_local_null_async(nil).value!
+    result = @client.api_version_local.get_method_local_null_async().value!
     expect(result.response.status).to eq(200)
   end
 
@@ -138,7 +138,7 @@ describe 'Azure Special properties behaviour' do
   end
 
   it 'should encode nil parameters in query string' do
-    result = @client.skip_url_encoding.get_method_query_null_async(nil).value!
+    result = @client.skip_url_encoding.get_method_query_null_async().value!
     expect(result.response.status).to eq(200)
   end
 
@@ -151,7 +151,7 @@ describe 'Azure Special properties behaviour' do
   it 'should overwrite hard coded headers with custom headers from code' do
     headers = Hash.new
     headers['x-ms-client-request-id'] = @validClientId
-    result = @client.xms_client_request_id.get_async(headers).value!
+    result = @client.xms_client_request_id.get_async(custom_headers:headers).value!
     expect(result.response.status).to eq(200)
     expect(result.response.headers['x-ms-request-id']).to eq("123")
   end
@@ -171,7 +171,7 @@ describe 'Azure Special properties behaviour' do
     headers['x-ms-client-request-id'] = '123'
 
     begin
-      @client.xms_client_request_id.get_async(headers).value!
+      @client.xms_client_request_id.get_async(custom_headers:headers).value!
       fail 'should have thrown MsRestAzure::AzureOperationError'
     rescue MsRestAzure::AzureOperationError => error
       expect(error.response.headers['x-ms-request-id']).to eq("123")
@@ -193,7 +193,7 @@ describe 'Azure Special properties behaviour' do
   # OData filters Tests
   it 'should support OData filter' do
     filter = "id gt 5 and name eq 'foo'"
-    result = @client.odata.get_with_filter_async(filter, 10, 'id').value!
+    result = @client.odata.get_with_filter_async(filter:filter, top:10, orderby:'id').value!
     expect(result.response.status).to eq(200)
   end
 end

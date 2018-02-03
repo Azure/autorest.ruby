@@ -41,19 +41,19 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 400' do
-      expect { @failure_client.put400_async(true).value! }.to raise_exception_with_code(400)
+      expect { @failure_client.put400_async(boolean_value:true).value! }.to raise_exception_with_code(400)
     end
 
     it 'should patch 400' do
-      expect { @failure_client.patch400_async(true).value! }.to raise_exception_with_code(400)
+      expect { @failure_client.patch400_async(boolean_value:true).value! }.to raise_exception_with_code(400)
     end
 
     it 'should post 400' do
-      expect { @failure_client.post400_async(true).value! }.to raise_exception_with_code(400)
+      expect { @failure_client.post400_async(boolean_value:true).value! }.to raise_exception_with_code(400)
     end
 
     it 'should delete 400' do
-      expect { @failure_client.delete400_async(true).value! }.to raise_exception_with_code(400)
+      expect { @failure_client.delete400_async(boolean_value:true).value! }.to raise_exception_with_code(400)
     end
 
     it 'should send head 401' do
@@ -69,23 +69,23 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 404' do
-      expect { @failure_client.put404_async(true).value! }.to raise_exception_with_code(404)
+      expect { @failure_client.put404_async(boolean_value:true).value! }.to raise_exception_with_code(404)
     end
 
     it 'should patch 405' do
-      expect { @failure_client.patch405_async(true).value! }.to raise_exception_with_code(405)
+      expect { @failure_client.patch405_async(boolean_value:true).value! }.to raise_exception_with_code(405)
     end
 
     it 'should post 406' do
-      expect { @failure_client.post406_async(true).value! }.to raise_exception_with_code(406)
+      expect { @failure_client.post406_async(boolean_value:true).value! }.to raise_exception_with_code(406)
     end
 
     it 'should delete 407' do
-      expect { @failure_client.delete407_async(true).value! }.to raise_exception_with_code(407)
+      expect { @failure_client.delete407_async(boolean_value:true).value! }.to raise_exception_with_code(407)
     end
 
     it 'should put 409' do
-      expect { @failure_client.put409_async(true).value! }.to raise_exception_with_code(409)
+      expect { @failure_client.put409_async(boolean_value:true).value! }.to raise_exception_with_code(409)
     end
 
     it 'should send head 410' do
@@ -101,15 +101,15 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 413' do
-      expect { @failure_client.put413_async(true).value! }.to raise_exception_with_code(413)
+      expect { @failure_client.put413_async(boolean_value:true).value! }.to raise_exception_with_code(413)
     end
 
     it 'should patch 414' do
-      expect { @failure_client.patch414_async(true).value! }.to raise_exception_with_code(414)
+      expect { @failure_client.patch414_async(boolean_value:true).value! }.to raise_exception_with_code(414)
     end
 
     it 'should post 415' do
-      expect { @failure_client.post415_async(true).value! }.to raise_exception_with_code(415)
+      expect { @failure_client.post415_async(boolean_value:true).value! }.to raise_exception_with_code(415)
     end
 
     it 'should get 416' do
@@ -117,7 +117,7 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should delete 417' do
-      expect { @failure_client.delete417_async(true).value! }.to raise_exception_with_code(417)
+      expect { @failure_client.delete417_async(boolean_value:true).value! }.to raise_exception_with_code(417)
     end
 
     it 'should send head 429' do
@@ -148,7 +148,7 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 301' do
-      result = @redirect_client.put301_async(true).value!
+      result = @redirect_client.put301_async(boolean_value:true).value!
       expect(result.response.status).to eq(301)
     end
 
@@ -163,12 +163,12 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should patch 302' do
-      result = @redirect_client.patch302_async(true).value!
+      result = @redirect_client.patch302_async(boolean_value:true).value!
       expect(result.response.status).to eq(302)
     end
 
     it 'should post 303' do
-      result = @redirect_client.post303_async(true).value!
+      result = @redirect_client.post303_async(boolean_value:true).value!
       expect(result.response.status).to eq(303)
     end
 
@@ -183,22 +183,22 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 307' do
-      result = @redirect_client.put307_async(true).value!
+      result = @redirect_client.put307_async(boolean_value:true).value!
       expect(result.response.status).to eq(307)
     end
 
     it 'should patch 307' do
-      result = @redirect_client.patch307_async(true).value!
+      result = @redirect_client.patch307_async(boolean_value:true).value!
       expect(result.response.status).to eq(307)
     end
 
     it 'should post 307' do
-      result = @redirect_client.post307_async(true).value!
+      result = @redirect_client.post307_async(boolean_value:true).value!
       expect(result.response.status).to eq(307)
     end
 
     it 'should delete 307' do
-      result = @redirect_client.delete307_async(true).value!
+      result = @redirect_client.delete307_async(boolean_value:true).value!
       expect(result.response.status).to eq(307)
     end
   end
@@ -210,12 +210,12 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 500' do
-      result = @retry_client.put500_async(true).value!
+      result = @retry_client.put500_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should patch 500' do
-      result = @retry_client.patch500_async(true).value!
+      result = @retry_client.patch500_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
@@ -225,22 +225,22 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should post 503' do
-      result = @retry_client.post503_async(true).value!
+      result = @retry_client.post503_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should delete 503' do
-      result = @retry_client.delete503_async(true).value!
+      result = @retry_client.delete503_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should put 504' do
-      result = @retry_client.put504_async(true).value!
+      result = @retry_client.put504_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should patch 504' do
-      result = @retry_client.patch504_async(true).value!
+      result = @retry_client.patch504_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
   end
@@ -255,11 +255,11 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should send post 505' do
-      expect { @server_fail_client.post505_async(true).value! }.to raise_exception_with_code(505)
+      expect { @server_fail_client.post505_async(boolean_value:true).value! }.to raise_exception_with_code(505)
     end
 
     it 'should send delete 505' do
-      expect { @server_fail_client.delete505_async(true).value! }.to raise_exception_with_code(505)
+      expect { @server_fail_client.delete505_async(boolean_value:true).value! }.to raise_exception_with_code(505)
     end
   end
 
@@ -276,52 +276,52 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 200' do
-      result = @success_client.put200_async(true).value!
+      result = @success_client.put200_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should patch 200' do
-      result = @success_client.patch200_async(true).value!
+      result = @success_client.patch200_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should post 200' do
-      result = @success_client.post200_async(true).value!
+      result = @success_client.post200_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should delete 200' do
-      result = @success_client.delete200_async(true).value!
+      result = @success_client.delete200_async(boolean_value:true).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should put 201' do
-      result = @success_client.put201_async(true).value!
+      result = @success_client.put201_async(boolean_value:true).value!
       expect(result.response.status).to eq(201)
     end
 
     it 'should post 201' do
-      result = @success_client.post201_async(true).value!
+      result = @success_client.post201_async(boolean_value:true).value!
       expect(result.response.status).to eq(201)
     end
 
     it 'should put 202' do
-      result = @success_client.put202_async(true).value!
+      result = @success_client.put202_async(boolean_value:true).value!
       expect(result.response.status).to eq(202)
     end
 
     it 'should patch 202' do
-      result = @success_client.patch202_async(true).value!
+      result = @success_client.patch202_async(boolean_value:true).value!
       expect(result.response.status).to eq(202)
     end
 
     it 'should post 202' do
-      result = @success_client.post202_async(true).value!
+      result = @success_client.post202_async(boolean_value:true).value!
       expect(result.response.status).to eq(202)
     end
 
     it 'should delete 202' do
-      result = @success_client.delete202_async(true).value!
+      result = @success_client.delete202_async(boolean_value:true).value!
       expect(result.response.status).to eq(202)
     end
 
@@ -331,22 +331,22 @@ describe 'HttpInfrastructure' do
     end
 
     it 'should put 204' do
-      result = @success_client.put204_async(true).value!
+      result = @success_client.put204_async(boolean_value:true).value!
       expect(result.response.status).to eq(204)
     end
 
     it 'should patch 204' do
-      result = @success_client.patch204_async(true).value!
+      result = @success_client.patch204_async(boolean_value:true).value!
       expect(result.response.status).to eq(204)
     end
 
     it 'should post 204' do
-      result = @success_client.post204_async(true).value!
+      result = @success_client.post204_async(boolean_value:true).value!
       expect(result.response.status).to eq(204)
     end
 
     it 'should delete 204' do
-      result = @success_client.delete204_async(true).value!
+      result = @success_client.delete204_async(boolean_value:true).value!
       expect(result.response.status).to eq(204)
     end
   end

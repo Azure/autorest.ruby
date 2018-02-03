@@ -159,17 +159,17 @@ module HeaderModule
     end
 
     it 'should post valid param string' do
-      result = @header_client.param_string_async("valid", "The quick brown fox jumps over the lazy dog").value!
+      result = @header_client.param_string_async("valid", value: "The quick brown fox jumps over the lazy dog").value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should post null param string' do
-      result = @header_client.param_string_async("null", nil).value!
+      result = @header_client.param_string_async("null", value: nil).value!
       expect(result.response.status).to eq(200)
     end
 
     it 'should post empty param string' do
-      result = @header_client.param_string_async('empty', '').value!
+      result = @header_client.param_string_async('empty', value: '').value!
       expect(result.response.status).to eq(200)
     end
 
@@ -236,7 +236,7 @@ module HeaderModule
     end
 
     it 'should post valid param dateTimeRfc1123' do
-      result = @header_client.param_datetime_rfc1123_async("valid", DateTime.new(2010, 1, 1, 12, 34, 56, 'Z')).value!
+      result = @header_client.param_datetime_rfc1123_async("valid", value:DateTime.new(2010, 1, 1, 12, 34, 56, 'Z')).value!
       expect(result.response.status).to eq(200)
     end
 
@@ -274,7 +274,7 @@ module HeaderModule
     end
 
     it 'should post valid enum' do
-      result = @header_client.param_enum_async('valid', GreyscaleColors::GREY).value!
+      result = @header_client.param_enum_async('valid', value:GreyscaleColors::GREY).value!
       expect(result.response.status).to eq(200)
     end
 

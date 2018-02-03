@@ -29,7 +29,7 @@ describe String do
     expect(result.body).to be_nil
   end
   it 'should put null' do
-    result = @string_client.put_null_async(nil).value!
+    result = @string_client.put_null_async().value!
     expect(result.response.status).to eq(200)
   end
   it 'should get empty' do

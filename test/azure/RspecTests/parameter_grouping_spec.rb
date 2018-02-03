@@ -62,12 +62,12 @@ describe 'ParameterGrouping' do
     optional_parameters.custom_header = @header
     optional_parameters.query = @query
 
-    result = @client.parameter_grouping.post_optional_async(optional_parameters).value!
+    result = @client.parameter_grouping.post_optional_async(parameter_grouping_post_optional_parameters:optional_parameters).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should accept null optional parameters' do
-    result = @client.parameter_grouping.post_optional_async(nil).value!
+    result = @client.parameter_grouping.post_optional_async().value!
     expect(result.response.status).to eq(200)
   end
 
@@ -81,7 +81,7 @@ describe 'ParameterGrouping' do
     second_parameter_group.header_two = 'header2'
     second_parameter_group.query_two = 42
 
-    result = @client.parameter_grouping.post_multi_param_groups_async(first_parameter_group, second_parameter_group).value!
+    result = @client.parameter_grouping.post_multi_param_groups_async(first_parameter_group:first_parameter_group, parameter_grouping_post_multi_param_groups_second_param_group:second_parameter_group).value!
     expect(result.response.status).to eq(200)
   end
 
@@ -93,7 +93,7 @@ describe 'ParameterGrouping' do
 
     second_parameter_group.query_two = 42
 
-    result = @client.parameter_grouping.post_multi_param_groups_async(first_parameter_group, second_parameter_group).value!
+    result = @client.parameter_grouping.post_multi_param_groups_async(first_parameter_group:first_parameter_group, parameter_grouping_post_multi_param_groups_second_param_group:second_parameter_group).value!
     expect(result.response.status).to eq(200)
   end
 
@@ -104,7 +104,7 @@ describe 'ParameterGrouping' do
     first_parameter_group.header_one = @header
     first_parameter_group.query_one = 42
 
-    result = @client.parameter_grouping.post_shared_parameter_group_object_async(first_parameter_group).value!
+    result = @client.parameter_grouping.post_shared_parameter_group_object_async(first_parameter_group:first_parameter_group).value!
     expect(result.response.status).to eq(200)
   end
 end

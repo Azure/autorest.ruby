@@ -69,7 +69,7 @@ describe 'Resource Flattening Operations' do
   end
 
   it 'should put external resource as an array' do
-    result = @client.put_array_async(@array_resource).value!
+    result = @client.put_array_async(resource_array:@array_resource).value!
     expect(result.response.status).to eq(200)
   end
 
@@ -103,7 +103,7 @@ describe 'Resource Flattening Operations' do
   end
 
   it 'should put external resource as a dictionary' do
-    result = @client.put_dictionary_async(@dict_resource).value!
+    result = @client.put_dictionary_async(resource_dictionary:@dict_resource).value!
     expect(result.response.status).to eq(200)
   end
 
@@ -169,7 +169,7 @@ describe 'Resource Flattening Operations' do
     complex_resource.dictionaryofresources = @dict_resource
     complex_resource.arrayofresources = [@product1, product2]
     complex_resource.productresource = product
-    result = @client.put_resource_collection_async(complex_resource).value!
+    result = @client.put_resource_collection_async(resource_complex_object:complex_resource).value!
     expect(result.response.status).to eq(200)
   end
 
@@ -181,12 +181,12 @@ describe 'Resource Flattening Operations' do
     simple_product.odatavalue = 'http://foo'
     simple_product.generic_value = 'https://generic'
 
-    result = @client.put_simple_product_async(simple_product).value!
+    result = @client.put_simple_product_async(simple_body_product:simple_product).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should post simple product with param flattening' do
-    result = @client.post_flattened_simple_product_async('123', 'max name', 'product description', nil, 'http://foo').value!
+    result = @client.post_flattened_simple_product_async('123', 'max name', description:'product description', odatavalue:'http://foo').value!
     expect(result.response.status).to eq(200)
 
     simple_product = result.body

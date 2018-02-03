@@ -86,7 +86,7 @@ describe Queries do
   end
 
   it 'should get string null' do
-    result = @queries_client.string_null_async(nil).value!
+    result = @queries_client.string_null_async().value!
     expect(result.response.status).to eq(200)
   end
 
@@ -144,27 +144,27 @@ describe Queries do
   end
 
   it 'should work with empty array string with csv format' do
-    result = @queries_client.array_string_csv_empty_async([]).value!
+    result = @queries_client.array_string_csv_empty_async(array_query:[]).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should work with empty array string with csv format' do
-    result = @queries_client.array_string_csv_valid_async(@test_array).value!
+    result = @queries_client.array_string_csv_valid_async(array_query:@test_array).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should work with empty array string with pipes format' do
-    result = @queries_client.array_string_pipes_valid_async(@test_array).value!
+    result = @queries_client.array_string_pipes_valid_async(array_query:@test_array).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should work with empty array string with ssv format' do
-    result = @queries_client.array_string_ssv_valid_async(@test_array).value!
+    result = @queries_client.array_string_ssv_valid_async(array_query:@test_array).value!
     expect(result.response.status).to eq(200)
   end
 
   it 'should work with empty array string with tsv format' do
-    result = @queries_client.array_string_tsv_valid_async(@test_array).value!
+    result = @queries_client.array_string_tsv_valid_async(array_query:@test_array).value!
     expect(result.response.status).to eq(200)
   end
 end
