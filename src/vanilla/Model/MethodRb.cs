@@ -617,6 +617,23 @@ namespace AutoRest.Ruby.Model
             return builder.ToString();
         }
 
+        public bool IsJsonGenerateRequired()
+        {
+            if(RequestBody.ModelType != null)
+            {
+                var known = RequestBody.ModelType as PrimaryType;
+                if(known != null)
+                {
+                    if (known.KnownPrimaryType == KnownPrimaryType.Stream)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Creates deserialization logic for the given <paramref name="type"/>.
         /// </summary>

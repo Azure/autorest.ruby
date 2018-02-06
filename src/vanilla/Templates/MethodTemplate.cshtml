@@ -119,7 +119,10 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
   @:# Serialize Request
   @:@Model.ConstructRequestBodyMapper("request_mapper")
   @:request_content = @(Model.ClientReference).serialize(request_mapper,  @(Model.RequestBody.Name))
+  @if (Model.IsJsonGenerateRequired())
+  {
   @:request_content = request_content != nil ? JSON.generate(request_content, quirks_mode: true) : nil
+  }  
   @EmptyLine
 }
 
