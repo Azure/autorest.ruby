@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoRest.Core;
@@ -15,6 +16,8 @@ namespace AutoRest.Ruby
 {
     public class Program : NewPlugin
     {
+        private static readonly Regex versionExtensionRegex = new Regex(@".*(-(preview|alpha|beta|rc|privatepreview))$", RegexOptions.IgnoreCase);
+
         public static int Main(string[] args )
         {
             if(args != null && args.Length > 0 && args[0] == "--server") {
@@ -62,7 +65,8 @@ namespace AutoRest.Ruby
             var codeModelT = new ModelSerializer<CodeModel>().Load(modelAsJson);
 
             // build settings
-            var altNamespace = (await GetValue<string[]>("input-file") ?? new[] { "" }).FirstOrDefault()?.Split('/').Last().Split('\\').Last().Split('.').First();
+            var inputFileValue = (await GetValue<string[]>("input-file") ?? new[] { "" });
+            var altNamespace = inputFileValue.FirstOrDefault()?.Split('/').Last().Split('\\').Last().Split('.').First();
             
             new Settings
             {
@@ -109,6 +113,8 @@ namespace AutoRest.Ruby
                 }
                 else
                 {
+                    string generatedFolderName = (bool)(inputFileValue.FirstOrDefault()?.ToString().Contains("/preview/")) && !(versionExtensionRegex.IsMatch(codeModel.ApiVersion)) ? (codeModel.ApiVersion+"-preview"): codeModel.ApiVersion;
+                    GeneratorSettingsRb.Instance.generatedFolderName = generatedFolderName;
                     plugin.CodeGenerator.Generate(codeModel).GetAwaiter().GetResult();
                 }
             }
