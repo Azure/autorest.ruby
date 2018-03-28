@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
+using System.IO;
 using AutoRest.Core.Model;
 using AutoRest.Extensions.Azure;
 using AutoRest.Ruby.Model;
@@ -16,7 +17,7 @@ namespace AutoRest.Ruby.Azure.Model
         /// <summary>
         /// Name of the generated sub-folder inside output directory.
         /// </summary>
-        protected override string GeneratedFolderName { get { return this.CodeModel.ApiVersion + "/generated"; } }
+        protected override string GeneratedFolderName { get { return Path.Combine(GeneratorSettingsRb.Instance.generatedFolderName, "generated"); } }
         
         /// <summary>
         /// Checks whether model should be excluded from producing.

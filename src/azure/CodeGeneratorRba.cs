@@ -49,7 +49,7 @@ namespace AutoRest.Ruby.Azure
             if (codeModel.ApiVersion == null){
                 throw new NullReferenceException("CodeModel doesn't have api-version set, specs in code model have mismatching api-versions.");
             }
-            generatedFolderName = Path.Combine(codeModel.ApiVersion, generatedFolderName);
+            generatedFolderName = Path.Combine(GeneratorSettingsRb.Instance.generatedFolderName, generatedFolderName);
             if (codeModel == null)
             {
                 throw new InvalidCastException("CodeModel is not a Azure Ruby code model.");

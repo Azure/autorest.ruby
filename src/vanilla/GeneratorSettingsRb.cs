@@ -77,5 +77,7 @@ namespace AutoRest.Ruby
         ///     Relative path to produced SDK files.
         /// </summary>
         public string sdkPath => packageName ?? sdkName;
+
+        public string generatedFolderName;
     }
 }
