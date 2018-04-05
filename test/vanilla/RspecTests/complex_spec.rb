@@ -307,6 +307,7 @@ describe 'Complex' do
     goblinshark.length = 30.0
     goblinshark.species = "scary"
     goblinshark.jawsize = 5
+    goblinshark.color = "pinkish-gray"
 
     polymorphism_request = ComplexModule::Models::Salmon.new
     polymorphism_request.iswild = true
