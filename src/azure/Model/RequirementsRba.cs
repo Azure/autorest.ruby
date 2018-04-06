@@ -17,7 +17,7 @@ namespace AutoRest.Ruby.Azure.Model
         /// <summary>
         /// Name of the generated sub-folder inside output directory.
         /// </summary>
-        protected override string GeneratedFolderName { get { return Path.Combine(GeneratorSettingsRb.Instance.generatedFolderName, "generated"); } }
+        protected override string GeneratedFolderName { get { return $"{GeneratorSettingsRb.Instance.generatedFolderName}/generated"; } }
         
         /// <summary>
         /// Checks whether model should be excluded from producing.
