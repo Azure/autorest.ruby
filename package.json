@@ -8,7 +8,7 @@
     "test": "gulp test",
     "testci": "gulp test",
     "build": "gulp build",
-    "prepare": "gulp build",
+    "prepare": "gulp install_common && gulp build",
     "publish-preview": "gulp publish-preview",
     "clean": "gulp clean",
     "nuke": "git clean -xdf"
