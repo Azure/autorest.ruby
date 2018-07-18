@@ -8,7 +8,7 @@
     "test": "gulp test",
     "testci": "gulp test",
     "build": "gulp build",
-    "prepare": "gulp build",
+    "prepare": "gulp install_common && gulp build",
     "publish-preview": "gulp publish-preview",
     "clean": "gulp clean",
     "nuke": "git clean -xdf"
@@ -30,7 +30,8 @@
   },
   "homepage": "https://github.com/Azure/autorest.ruby/blob/master/README.md",
   "devDependencies": {
-    "autorest": "^2.0.4200",
+    "@microsoft.azure/autorest.testserver": "^2.5.24",
+    "autorest": "^2.0.4203",
     "coffee-script": "^1.11.1",
     "dotnet-sdk-2.0.0": "^1.4.4",
     "gulp": "^3.9.1",
@@ -44,10 +45,10 @@
     "shx": "^0.2.2",
     "through2-parallel": "^0.1.3",
     "yargs": "^8.0.2",
-    "@microsoft.azure/autorest.testserver": "^2.3.13",
     "yarn": "^1.0.2"
   },
   "dependencies": {
+    "@microsoft.azure/autorest.common": "git+https://github.com/azure/autorest.common.git",
     "dotnet-2.0.0": "^1.4.4"
   }
 }
