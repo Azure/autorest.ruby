@@ -158,26 +158,34 @@ namespace AutoRest.Ruby.Azure.Model
         public string GetLongRunningOperationResponse(string clientReference)
         {
             var builder = new IndentedStringBuilder("  ");
-            string lroOptions = GetLROOptions();
-            return builder.AppendLine("{0}.get_long_running_operation_result(response, deserialize_method)", clientReference).ToString();
+            string lroOption = GetLROOptions();
+            if (lroOption.Length == 0)
+            {
+                return builder.AppendLine("{0}.get_long_running_operation_result(response, deserialize_method)", clientReference).ToString();
+            }
+            return builder.AppendLine("{0}.get_long_running_operation_result(response, deserialize_method, {1})", clientReference, lroOption).ToString();
         }
 
         public string GetLROOptions()
         {
             if(this.HttpMethod != HttpMethod.Post || this.ReturnType == null)
             {
-                return "default";
+                return "";
             }
 
-            /*switch (this.LongRunningFinalState)
+            switch (this.LongRunningFinalState)
             {
                 case FinalStateVia.Location:
-                    return "location";
+                    return "FinalStateVia::LOCATION";
+                case FinalStateVia.AzureAsyncOperation:
+                    return "FinalStateVia::AZURE_ASYNC_OPERATION";
+                case FinalStateVia.OriginalUri:
+                    return "FinalStateVia::ORIGINAL_URI";
                 default:
                     break;
-            }*/
+            }
 
-            return "default";
+            return "";
         }
 
         /// <summary>
