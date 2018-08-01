@@ -89,7 +89,7 @@ describe 'Long Running Operation' do
   it 'should return payload on POST async request' do
     result = @lros_client.post200with_payload_async().value!
     expect(result.body).to be_instance_of(Sku)
-    expect(result.body.id).to eq(1)
+    expect(result.body.id).to eq("1")
   end
 
   it 'should succeed for put async retry' do

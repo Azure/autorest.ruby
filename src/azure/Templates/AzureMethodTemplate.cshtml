@@ -96,7 +96,7 @@ def @(Model.Name)_async(@(Model.MethodParameterDeclaration))
 
     @EmptyLine
     # Waiting for response.
-    @(Model.ClientReference).get_long_running_operation_result(response, deserialize_method)
+    @(Model.GetLongRunningOperationResponse(Model.ClientReference))
   end
 
   @EmptyLine
