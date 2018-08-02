@@ -48,7 +48,6 @@
     "yarn": "^1.0.2"
   },
   "dependencies": {
-    "@microsoft.azure/autorest.common": "git+https://github.com/azure/autorest.common.git",
     "dotnet-2.0.0": "^1.4.4"
   }
 }
