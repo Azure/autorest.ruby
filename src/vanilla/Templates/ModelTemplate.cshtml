@@ -52,6 +52,19 @@ module @(Settings.Namespace)
       @:
     }
 
+    @if (Model.IsResourceGroupRequired())
+    {
+      @EmptyLine
+      @:# @@return [String] the name of the resource group of the resource.
+      @:def resource_group
+        @:unless self.id.nil?
+          @:groups = self.id.match(/.+\/resourceGroups\/([^\/]+)\/.+/)
+          @:groups.captures[0].strip if groups
+        @:end
+      @:end
+      @EmptyLine
+    }
+
       @EmptyLine
       #
       @WrapComment("# ", string.Format("Mapper for {0} class as Ruby Hash.", Model.Name))

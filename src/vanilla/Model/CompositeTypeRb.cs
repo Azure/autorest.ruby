@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
+using System.Text.RegularExpressions;
 using static AutoRest.Core.Utilities.DependencyInjection;
 
 namespace AutoRest.Ruby.Model
@@ -111,6 +112,13 @@ namespace AutoRest.Ruby.Model
             var builder = new IndentedStringBuilder("  ");
             builder.AppendLine("{{{0}}}", modelMapper);
             return builder.ToString();
+        }
+
+        public bool IsResourceGroupRequired()
+        {
+            Regex resourceRegEx = new Regex(@"^(RESOURCE)$", RegexOptions.IgnoreCase);
+
+            return resourceRegEx.IsMatch(this.Name);
         }
 
         public string GetAttributeAccessorForPolymorphicDiscriminatorProperty()
