@@ -118,12 +118,7 @@ namespace AutoRest.Ruby.Model
         {
             Regex resourceRegEx = new Regex(@"^(RESOURCE)$", RegexOptions.IgnoreCase);
 
-            if(resourceRegEx.IsMatch(this.Name))
-            {
-                return true;
-            }
-
-            return false;
+            return resourceRegEx.IsMatch(this.Name);
         }
 
         public string GetAttributeAccessorForPolymorphicDiscriminatorProperty()

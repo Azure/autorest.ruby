@@ -51,6 +51,7 @@ describe 'ModelsGenerationAndInheritance' do
     inherit_azure_resource = modules.const_get('InheritAzureResource')
     expect(inherit_azure_resource.is_a?(Class)).to be_truthy
     expect(inherit_azure_resource.superclass.name).to eq('AzureResourceInheritanceModule::Models::AzureResource')
+    expect(inherit_azure_resource.new.methods.include? :resource_group).to be_falsey
 
     # Should generate InheritAzureResourceAdditionaProperties with super class as AzureResourceAdditionaProperties
     azure_resource_additional_properties = modules.const_get('InheritAzureResourceAdditionaProperties')
