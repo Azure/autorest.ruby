@@ -56,7 +56,7 @@ module @(Settings.Namespace)
       def get_all_items
         items = @@@Model.ItemName
         page = self
-        while page.@(Model.NextLinkName) != nil do
+        while page.@(Model.NextLinkName) != nil && !page.@(Model.NextLinkName).strip.empty? do
           page = page.get_next_page
           items.concat(page.@Model.ItemName)
         end
