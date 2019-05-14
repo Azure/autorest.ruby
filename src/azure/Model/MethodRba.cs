@@ -30,6 +30,8 @@ namespace AutoRest.Ruby.Azure.Model
 
         public string RequestIdString => AzureExtensions.GetRequestIdString(this);
 
+        public string CorrelationRequestIdString => AzureExtensions.GetCorrelationRequestIdString(this);
+
         /// <summary>
         /// Returns true if method has x-ms-long-running-operation extension.
         /// </summary>
@@ -205,6 +207,10 @@ namespace AutoRest.Ruby.Azure.Model
 
                 sb.AppendLine(
                     "result.request_id = http_response['{0}'] unless http_response['{0}'].nil?", this.RequestIdString);
+                sb.AppendLine(
+                    "result.correlation_request_id = http_response['{0}'] unless http_response['{0}'].nil?", this.CorrelationRequestIdString);
+                sb.AppendLine(
+                    "result.client_request_id = http_response['{0}'] unless http_response['{0}'].nil?", this.ClientRequestIdString);
 
                 sb.AppendLine(base.InitializeResponseBody);
 
