@@ -35,7 +35,7 @@ namespace AutoRest.Ruby.Azure.Model
         /// <summary>
         /// Returns true if method has x-ms-long-running-operation extension.
         /// </summary>
-        public bool IsLongRunningOperation => Extensions.ContainsKey(AzureExtensions.LongRunningExtension);
+        public bool IsLongRunningOperation => Extensions.ContainsKey(AzureExtensions.LongRunningExtension) && (bool) Extensions[AzureExtensions.LongRunningExtension];
 
         /// <summary>
         /// Returns true if method has x-ms-pageable extension.
