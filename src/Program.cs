@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Threading.Tasks;
@@ -113,6 +114,23 @@ namespace AutoRest.Ruby
                 }
                 else
                 {
+                    if (codeModel.ApiVersion is null) {
+                        var pathItems = inputFileValue.FirstOrDefault()?.ToString().Split('/');
+                        foreach (var pathItem in pathItems) {
+                            if (pathItem.Length < 10) {
+                                continue;
+                            }
+                            DateTime dt;
+                            bool isValid = DateTime.TryParseExact(pathItem.Substring(0, 10), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+                            if (isValid) {
+                                codeModel.ApiVersion = pathItem;
+                                break;
+                            }
+                        }
+                    }
+                    if (codeModel.ApiVersion is null) {
+                        throw new NullReferenceException("codeModel.ApiVersion is null.");
+                    }
                     string generatedFolderName = (bool)(inputFileValue.FirstOrDefault()?.ToString().Contains("/preview/")) && !(versionExtensionRegex.IsMatch(codeModel.ApiVersion)) ? (codeModel.ApiVersion+"-preview"): codeModel.ApiVersion;
                     GeneratorSettingsRb.Instance.generatedFolderName = generatedFolderName;
                     plugin.CodeGenerator.Generate(codeModel).GetAwaiter().GetResult();
