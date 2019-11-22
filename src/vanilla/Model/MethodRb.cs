@@ -491,6 +491,9 @@ namespace AutoRest.Ruby.Model
                 }
                 foreach (var transformation in InputParameterTransformation)
                 {
+                    if (!transformation.ParameterMappings.Any()) {
+                        continue;
+                    }
                     builder.AppendLine("unless {0}", BuildNullCheckExpression(transformation))
                            .AppendLine().Indent();
                     var outputParameter = transformation.OutputParameter;
