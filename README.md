@@ -1,4 +1,4 @@
-## Important Announcement
+## Important Announcement - **RETIRED**
 
 As of February 2021, Azure Resource Management SDK for Ruby **has entered a retirement phase and is no longer officially supported by Microsoft**. Here is the complete list of packages that are affected by this. We are committed to making critical security and bug fixes for libraries in this repo until **December 31, 2021**. After that date, this repo will no longer be maintained.  
 
